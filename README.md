@@ -1,6 +1,5 @@
 # helmetvest
-# helmetvest
-# git clone https://github.com/MeijunZhu/helmetvest.git
+#### git clone https://github.com/MeijunZhu/helmetvest.git
 1.把best.pt复制到yolov5的文件夹中
 2.修改gen_wts.py文件中的pt文件名
 3.python gen_wts.py
