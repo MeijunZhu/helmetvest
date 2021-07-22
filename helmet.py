@@ -8,11 +8,24 @@ import pycuda.driver as cuda
 
 import threading
 import random
+import pygame
 
 INPUT_W = 640
 INPUT_H = 640
 CONF_THRESH = 0.2
 IOU_THRESHOLD = 0.4
+
+
+Alive=False
+def threadsingle(): 
+    global Alive
+    filepath=r"helmet.mp3"
+    pygame.mixer.init()
+    track = pygame.mixer.music.load(filepath)
+    pygame.mixer.music.play()
+    
+    time.sleep(3)
+    Alive=False
 
 def plot_one_box(x, img, color=None, label=None, line_thickness=None):
     """
@@ -50,11 +63,15 @@ def plot_one_box(x, img, color=None, label=None, line_thickness=None):
             lineType=cv2.LINE_AA,
         )
 
-
+global Alive
 def draw_boxes(image_raw, result_boxes, result_scores, result_classid):
     for i in range(len(result_boxes)):
         box = result_boxes[i]
         if int(result_classid[i])<2:
+            if Alive==False:
+                Alive=True
+                tt=threading.Thread(target=threadsingle)
+                tt.start()
             plot_one_box(
                 box,
                 image_raw,
